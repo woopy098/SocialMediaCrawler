@@ -7,7 +7,7 @@ class javatest:
         self.host = "localhost"
         self.user = "root"
         self.password = "password" #change if password is different
-        self.database = "comments" #change if different database
+        self.database = "sqldatabase" #change if different database
         self.charset = "utf8mb4" #
         self._connection() #call _connection function
 
@@ -24,7 +24,7 @@ class javatest:
         except Error as err:
             print("error while connecting to database",err)
 
-    def createTable(self):
+    def createTable(self): #not required anymore as the database is inside .sql script
         cursor = self._db.cursor()
         #cursor.execute(("CREATE TABLE IF NOT EXISTS commenteds(category VARCHAR(50) NOT NULL,user VARCHAR(20) NOT NULL,commentedd VARCHAR(5000) NOT NULL)")) #checked
         #id INT NOT NULL AUTO_INCREMENT
@@ -42,7 +42,7 @@ class javatest:
         #enter whatever or grab whatever put inside here to insert
         cursor = self._db.cursor() #access sql
         val = (cid, user,comment,datecreate)
-        cursor.execute("INSERT INTO commenteds (category,user,commentedd) VALUES (%s, %s,%s)", val)
+        cursor.execute("INSERT INTO comment (cid,user,comments,dates) VALUES (%s, %s,%s,%s)", val)
         self._db.commit() #update database
 
         #print("record inserted.")
@@ -57,7 +57,7 @@ class javatest:
     def read(self):
         cursor = self._db.cursor()
         #self._connection()
-        cursor.execute("SELECT * FROM commenteds") #select all from table(comment)
+        cursor.execute("SELECT * FROM comment") #select all from table(comment)
         result = cursor.fetchall()
         for x in result:
             print(x)
@@ -77,6 +77,6 @@ class javatest:
 
     def truncatetable(self):
         cursor = self._db.cursor()
-        cursor.execute("TRUNCATE TABLE commenteds")  # THIS IS TO REMOVE ITEM FROM THE TABLE SAVED PREVIOUSLY
+        cursor.execute("TRUNCATE TABLE comment")  # THIS IS TO REMOVE ITEM FROM THE TABLE SAVED PREVIOUSLY
         # updating code here
         cursor.close()
