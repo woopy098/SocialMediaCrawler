@@ -1,7 +1,7 @@
 import praw
 from datetime import datetime
 from Crawler import Crawler
-#from Database import Database
+from Database import Database
 
 
 class RedditCrawler(Crawler):
@@ -13,6 +13,7 @@ class RedditCrawler(Crawler):
         )
 
     def crawl(self):
+        db = Database()
         subreddit = self.reddit.subreddit('Singapore')
         for submission in subreddit.search("jail"):
             submission.comments.replace_more(limit=None)
@@ -22,12 +23,12 @@ class RedditCrawler(Crawler):
                                                                                   submission.ups,
                                                                                   submission.downs,
                                                                                   len(comment)))
-            Database.insert(str(submission.id), str(submission.author), str(
+            db.insert(str(submission.id), str(submission.author), str(
                 submission.title), datetime.utcfromtimestamp(submission.created_utc))
             # retrieve replies
             for c in comment:
                 if len(comment) > 0:
-                    Database.insert(str(c.id), str(c.author), str(
+                    db.insert(str(c.id), str(c.author), str(
                         c.body), datetime.utcfromtimestamp(c.created_utc))
 
 

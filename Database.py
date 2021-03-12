@@ -38,13 +38,13 @@ class Database:
         self._db.close()
         print("connection close")
 
-    def insert(self,cid,user,comment,datecreate): # change to 4parameter
+    def insert(self, cid, user, comment, datecreate): # change to 4parameter
         #enter whatever or grab whatever put inside here to insert
         cursor = self._db.cursor() #access sql
         val = (cid, user,comment,datecreate)
+        print(val)
         cursor.execute("INSERT INTO comment (cid,user,comments,dates) VALUES (%s, %s,%s,%s)", val)
         self._db.commit() #update database
-
         #print("record inserted.")
         cursor.close() #close cursor everytime after use for security purposes
 
