@@ -1,12 +1,15 @@
 import praw
+from datetime import datetime
 from Crawler import Crawler
+#from Database import Database
+
 
 class RedditCrawler(Crawler):
     def __init__(self, topic, clientId, secret):
         self.reddit = praw.Reddit(
-            client_id= clientId,
-            client_secret= secret,
-            user_agent= topic,
+            client_id=clientId,
+            client_secret=secret,
+            user_agent=topic,
         )
 
     def crawl(self):
@@ -15,16 +18,19 @@ class RedditCrawler(Crawler):
             submission.comments.replace_more(limit=None)
             comment = submission.comments.list()
             print("P: {} , Title: {} , ups: {} , downs: {} , Comments: {}".format(submission.id,
-                                                                                     submission.title,
-                                                                                     submission.ups,
-                                                                                     submission.downs,
-                                                                                     len(comment)))
+                                                                                  submission.title,
+                                                                                  submission.ups,
+                                                                                  submission.downs,
+                                                                                  len(comment)))
+            Database.insert(str(submission.id), str(submission.author), str(
+                submission.title), datetime.utcfromtimestamp(submission.created_utc))
             # retrieve replies
             for c in comment:
                 if len(comment) > 0:
-                    print("R: {}, Text: {}".format(c.id, c.body))
-                    # Here: run insertRow(c.id, c.body, c.author, c.created_utc)
+                    Database.insert(str(c.id), str(c.author), str(
+                        c.body), datetime.utcfromtimestamp(c.created_utc))
 
 
-crawler = RedditCrawler("Shopping_habits","zSqCr7ZeezCMgQ","-K97i2uEaVP9ae69IGGJ8HXp7Xz3LA")
+crawler = RedditCrawler("Shopping_habits", "zSqCr7ZeezCMgQ",
+                        "-K97i2uEaVP9ae69IGGJ8HXp7Xz3LA")
 crawler.crawl()
