@@ -59,9 +59,10 @@ class Database:
         #self._connection()
         cursor.execute("SELECT * FROM comment") #select all from table(comment)
         result = cursor.fetchall()
-        for x in result:
-            print(x)
+        # for x in result:
+        #     print(x)
         cursor.close()
+        return result
 
     def update(self):
         cursor = self._db.cursor()
