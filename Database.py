@@ -53,13 +53,10 @@ class Database:
         cursor = self._db.cursor()
         cursor.execute("SELECT * FROM crawleddata LIMIT "+(str(limit))) #select all from table(comment)
         result = cursor.fetchall()
-<<<<<<< HEAD
         for x in result:
            print(x)
-=======
         # for x in result:
         #     print(x)
->>>>>>> 6f5fa3125dd84511bb3f89f4f2580bd4cac3e3af
         cursor.close()
         return result
 
