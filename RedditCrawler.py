@@ -32,6 +32,9 @@ class RedditCrawler(Crawler):
                         c.body), datetime.utcfromtimestamp(c.created_utc))
 
 
+        db.disconnect()
+
+
 crawler = RedditCrawler("Shopping_habits", "zSqCr7ZeezCMgQ",
                         "-K97i2uEaVP9ae69IGGJ8HXp7Xz3LA")
 crawler.crawl()
