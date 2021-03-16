@@ -1,7 +1,6 @@
 import praw
 from datetime import datetime
 from Crawler import Crawler
-from Database import Database
 
 
 class RedditCrawler(Crawler):
@@ -11,17 +10,46 @@ class RedditCrawler(Crawler):
     ...
     Attributes
     ----------
-    
+    Reddit : Object
+        Initialize Reddit Connection using PRAW
+
+    Methods
+    -------
+    crawl():
+        Crawl Singapore crimes related data from Reddit.
     """
     def __init__(self, topic, clientId, secret):
+        """
+        Constructs all the necessary attributes for Reddit Crawler, and initialize connection to Reddit API
+
+        Parameters
+        ----------
+            topic: str
+                The topic for the Web Crawler (can be any words)
+            clientId: str
+                Authentication id, visit https://www.reddit.com/prefs/apps to register and receive the "client id"
+            secret: str
+                Visit the website to register to receive String "client secret".
+        """
         self.reddit = praw.Reddit(
             client_id=clientId,
             client_secret=secret,
             user_agent=topic,
         )
 
-    def crawl(self):
-        db = Database()
+    def crawl(self, db):
+        """
+        Crawl Singapore crimes related data from Reddit.
+
+        Parameters
+        ----------
+        db: Database object
+            Initialize connection to MySQL Database and inserting data
+
+        Returns
+        -------
+        None
+        """
         subreddit = self.reddit.subreddit('Singapore')
         for post in subreddit.search("jail"):
             post.comments.replace_more(limit=None)
@@ -29,12 +57,4 @@ class RedditCrawler(Crawler):
             # insert posts
             db.insert("post", str(post.author), str(post.title), str(post.score),
                       datetime.utcfromtimestamp(post.created_utc), len(comment))
-            # insert comments
-            # for c in comment:
-            # db.insert("comment", str(c.body), str(c.score), str(
-            #     c.author), datetime.utcfromtimestamp(c.created_utc))
         db.disconnect()
-
-#crawler = RedditCrawler("Crimes", "zSqCr7ZeezCMgQ",
-#                        "-K97i2uEaVP9ae69IGGJ8HXp7Xz3LA")
-#crawler.crawl()
