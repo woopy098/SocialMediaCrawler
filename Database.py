@@ -6,7 +6,7 @@ class Database:
     def __init__(self):
         self.host = "localhost"
         self.user = "root"
-        self.password = "password" #change if password is different
+        self.password = "admin" #change if password is different
         self.database = "sqldatabase" #change if different database
         self.charset = "utf8mb4" #
         self._connection() #call _connection function

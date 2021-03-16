@@ -5,6 +5,14 @@ from Database import Database
 
 
 class RedditCrawler(Crawler):
+    """
+    A class to represent Reddit Crawler
+
+    ...
+    Attributes
+    ----------
+    
+    """
     def __init__(self, topic, clientId, secret):
         self.reddit = praw.Reddit(
             client_id=clientId,
@@ -27,6 +35,6 @@ class RedditCrawler(Crawler):
             #     c.author), datetime.utcfromtimestamp(c.created_utc))
         db.disconnect()
 
-#crawler = RedditCrawler("Shopping_habits", "zSqCr7ZeezCMgQ",
+#crawler = RedditCrawler("Crimes", "zSqCr7ZeezCMgQ",
 #                        "-K97i2uEaVP9ae69IGGJ8HXp7Xz3LA")
 #crawler.crawl()
