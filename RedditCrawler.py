@@ -2,7 +2,7 @@ import praw
 from datetime import datetime
 from Crawler import Crawler
 from Database import Database
-
+from SentimentAnalyzer import SentimentAnalyzer
 
 class RedditCrawler(Crawler):
     def __init__(self, topic, clientId, secret):
@@ -26,6 +26,25 @@ class RedditCrawler(Crawler):
             # db.insert("comment", str(c.body), str(c.score), str(
             #     c.author), datetime.utcfromtimestamp(c.created_utc))
         db.disconnect()
+
+
+    def crawl2(self):
+        subreddit = self.reddit.subreddit("Singapore")
+        newSubVaccine = subreddit.search("vaccine")
+        for submission in newSubVaccine:
+            comments = submission.comments.list()
+            print("P: {} , Title: {} , ups: {} , downs: {} , Comments: {}".format(submission.id,
+                                                                                  submission.title,
+                                                                                  submission.ups,
+                                                                                  submission.downs,
+                                                                                  len(comments)))
+            for comment in comments:
+                text= comment.body
+                print("Sentiment = ",str(SentimentAnalyzer.analyzeSentiment(text))," : ",text)
+
+
+
+
 
 #crawler = RedditCrawler("Shopping_habits", "zSqCr7ZeezCMgQ",
 #                        "-K97i2uEaVP9ae69IGGJ8HXp7Xz3LA")

@@ -43,7 +43,7 @@ class Database:
         #enter whatever or grab whatever put inside here to insert
         cursor = self._db.cursor() #access sql
         val = (type, user,text,likes,datecreate,commented)
-        print(val)
+        #print(val)
         cursor.execute("INSERT INTO crawleddata (type,user,text,likes,dates,commented) VALUES (%s, %s,%s, %s, %s,%s)", val)
         self._db.commit() #update database
         #print("record inserted.")
