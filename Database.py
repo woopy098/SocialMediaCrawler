@@ -51,7 +51,7 @@ class Database:
         """
         cursor = self._db.cursor()
         sql = "CREATE TABLE crawleddata (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, type VARCHAR(20) COLLATE utf8mb4_unicode_ci NOT NULL,user VARCHAR(100) COLLATE utf8mb4_unicode_ci NOT NULL,"\
-              "text VARCHA  R(10000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL NULL,"\
+              "text VARCHAR(10000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL NULL,"\
               "likes INT , dates DATETIME , commented INT )"
         #cursor.execute("CREATE TABLE IF NOT EXISTS crawleddata (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, type VARCHAR(20) COLLATE utf8mb4_unicode_ci NOT NULL,user VARCHAR(100) COLLATE utf8mb4_unicode_ci NOT NULL,"
                        #"text VARCHAR(10000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL NULL,"
