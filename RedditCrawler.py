@@ -52,7 +52,7 @@ class RedditCrawler(Crawler):
         None
         """
         subreddit = self.reddit.subreddit('Singapore')
-        for post in subreddit.search("jail+charged", limit=None):
+        for post in subreddit.search("jail+charged+arrested+sentenced", limit=None):
             post.comments.replace_more(limit=None)
             comment = post.comments.list()
             # sentiment analysis
