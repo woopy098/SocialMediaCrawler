@@ -14,9 +14,9 @@ class TwitterCrawler(Crawler):
         self.number_of_tweets = 1000
 
     # Crawl function
-    def crawl(self):
+    def crawl(self, db):
         search_words = "(charged OR jail OR arrested OR sentenced) AND singapore -filters:retweets"
-        for t in tweepy.Cursor(self.api.search, lang="en", q=search_words).items():
+        for tweet in tweepy.Cursor(self.api.search, lang="en", q=search_words).items():
             db.insert("tweet", str(tweet.user.screen_name), str(
                 tweet.full_text), tweet.favorite_count, tweet.created_at, tweet.retweet_count)
         db.disconnect()

@@ -10,7 +10,7 @@ access_token_secret = "Yqe9FSSawbubSLQdv7Skifbh02gVnmsXxRF3Xow2upl5U"
 print("Start")
 db = Database.Database()
 db.createTable()
-rcrawl = RedditCrawler("Crimes", "zSqCr7ZeezCMgQ", "-K97i2uEaVP9ae69IGGJ8HXp7Xz3LA")
+rcrawl = RedditCrawler("Crimes", "zSqCr7ZeezCMgQ","-K97i2uEaVP9ae69IGGJ8HXp7Xz3LA")
 rcrawl.crawl(db)
 tcrawl = TwitterCrawler(consumer_key, consumer_secret,access_token, access_token_secret)
 tcrawl.crawl(db)
