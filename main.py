@@ -2,7 +2,7 @@ from Database import Database
 from RedditCrawler import RedditCrawler
 from TwitterCrawler import TwitterCrawler
 host = "localhost"
-password = "password"
+password = "admin"
 user = "root"
 database = "sqldatabase"
 consumer_key = "OrRuKndlEY6Xx3sOEuWaW3dPx"
