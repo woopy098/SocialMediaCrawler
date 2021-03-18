@@ -10,7 +10,7 @@ class TwitterCrawler(Crawler):
 
     # Crawl function
     def crawl(self, db):
-        search_words = "(charged OR jail OR arrested OR sentenced) AND singapore -filters:retweets"
-        for tweet in tweepy.Cursor(self.api.search, lang="en", q=search_words).items():
+        search_words = "(charged OR jail OR arrested OR sentenced) AND singapore"
+        for tweet in tweepy.Cursor(self.api.search, lang="en", q=search_words+'-filter:retweets').items():
             db.insert("tweet", str(tweet.user.screen_name),
                 str(tweet.text), tweet.favorite_count, tweet.created_at, tweet.retweet_count)
