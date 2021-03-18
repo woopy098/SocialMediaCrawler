@@ -40,7 +40,7 @@ class RedditCrawler(Crawler):
 
     def crawl(self, db):
         """
-        Crawl Singapore crimes related data from twitter.
+        Crawl Singapore crimes related data from Reddit.
 
         Parameters
         ----------
