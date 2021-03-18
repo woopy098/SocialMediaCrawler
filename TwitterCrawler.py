@@ -34,6 +34,13 @@ class TwitterCrawler(Crawler):
         self.auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
         self.auth.set_access_token(access_token, token_secret)
         self.api = tweepy.API(self.auth, wait_on_rate_limit=True)
+        # Test Twitter connection using crawl() method function
+        try:
+            for test in tweepy.Cursor(self.api.search, q="a").items(1):
+                print("Twitter Connection Successful!")
+        except Exception as e:
+            print("Authentication Failed, Wrong authentication details!",e)
+            exit()
 
     # Crawl function
     def crawl(self, db):
@@ -49,6 +56,7 @@ class TwitterCrawler(Crawler):
         -------
         None
         """
+        print("Crawling Twitter now...")
         keys = "(charged OR jail OR arrested OR sentenced) AND singapore"
         for tweet in tweepy.Cursor(self.api.search, lang="en", q=keys+'-filter:retweets').items():
             db.insert("tweet", str(tweet.user.screen_name),
