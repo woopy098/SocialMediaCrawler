@@ -4,7 +4,6 @@ from TwitterCrawler import TwitterCrawler
 
 print("Start")
 db = Database.Database()
-# db.createTable()
 db.createTable()
 rcrawl = RedditCrawler("Crimes","zSqCr7ZeezCMgQ","-K97i2uEaVP9ae69IGGJ8HXp7Xz3LA")
 rcrawl.crawl(db)

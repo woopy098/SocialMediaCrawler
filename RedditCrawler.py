@@ -18,6 +18,7 @@ class RedditCrawler(Crawler):
     crawl():
         Crawl Singapore crimes related data from Reddit.
     """
+
     def __init__(self, topic, clientId, secret):
         """
         Constructs all the necessary attributes for Reddit Crawler, and initialize connection to Reddit API
@@ -51,9 +52,13 @@ class RedditCrawler(Crawler):
         None
         """
         subreddit = self.reddit.subreddit('Singapore')
-        for post in subreddit.search("jail"):
+        for post in subreddit.search("jail+charged", limit=None):
             post.comments.replace_more(limit=None)
             comment = post.comments.list()
+            # sentiment analysis
+            sentiment = 0
+            # for i in comment:
+            #     print(i.body)
             # insert posts
             db.insert("post", str(post.author), str(post.title), str(post.score),
                       datetime.utcfromtimestamp(post.created_utc), len(comment))
