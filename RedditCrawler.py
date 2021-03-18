@@ -55,10 +55,5 @@ class RedditCrawler(Crawler):
         for post in subreddit.search("jail OR charged OR arrested OR sentenced", limit=None):
             post.comments.replace_more(limit=None)
             comment = post.comments.list()
-            # sentiment analysis
-            sentiment = 0
-            # for i in comment:
-            #     print(i.body)
-            # insert posts
             db.insert("post", str(post.author), str(post.title), str(post.score),
                       datetime.utcfromtimestamp(post.created_utc), len(comment))
