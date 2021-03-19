@@ -109,6 +109,27 @@ class Database:
             print("error inserting data into database.",err)
         cursor.close() #close cursor everytime after use for security purposes
 
+<<<<<<< HEAD
+=======
+    def read(self,limit):
+        """
+        Read top few data from table using limits
+        :param limit: int
+        :return:
+         result: str
+        """
+        cursor = self._db.cursor()
+        try:
+            cursor.execute("SELECT * FROM crawleddata LIMIT "+(str(limit))) #select all from table(comment)
+            result = cursor.fetchall()
+        except Error as err:
+            print("error reading data",err)
+        for x in result:
+          print(x)
+        cursor.close()
+        return result
+
+>>>>>>> e420f444182e7be51386eb9dc72678b50ab49341
     def search(self,keyword):
         """
         search keyword to find news
