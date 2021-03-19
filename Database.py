@@ -15,7 +15,7 @@ class Database:
 
     def __init__(self, host, user, password, database):
         """
-         Construct all the necessary attributes for Database and initialize the logins
+        Construct all the necessary attributes for Database and initialize the logins
         :param host: str. server of the database
         :param user: str. username of the database
         :param password: str. password of the database
@@ -93,30 +93,6 @@ class Database:
         except Error as err:
             print("error inserting data into database.", err)
         cursor.close()  # close cursor everytime after use for security purposes
-
-    def read(self, limit):
-        """
-        Read top few data from table using limits
-        :param limit: int
-        :return:
-         result: str
-        """
-        cursor = self._db.cursor()
-        try:
-            cursor.execute("SELECT * FROM crawleddata LIMIT " + (str(limit)))  # select all from table(comment)
-            result = cursor.fetchall()
-        except Error as err:
-<<<<<<< HEAD
-            print("error reading data",err)
-        for x in result:
-          print(x)
-=======
-            print("error reading data", err)
-        # for x in result:
-        #  print(x)
->>>>>>> 9453aa70b2c8b0ebf15c44a20d3ba2118f2e4054
-        cursor.close()
-        return result
 
     def search(self, keyword):
         """
