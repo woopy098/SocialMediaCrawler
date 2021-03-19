@@ -109,8 +109,6 @@ class Database:
             print("error inserting data into database.",err)
         cursor.close() #close cursor everytime after use for security purposes
 
-<<<<<<< HEAD
-=======
     def read(self,limit):
         """
         Read top few data from table using limits
@@ -129,7 +127,6 @@ class Database:
         cursor.close()
         return result
 
->>>>>>> e420f444182e7be51386eb9dc72678b50ab49341
     def search(self,keyword):
         """
         search keyword to find news
