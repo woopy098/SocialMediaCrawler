@@ -32,11 +32,18 @@ class RedditCrawler(Crawler):
             secret: str
                 Visit the website to register to receive String "client secret".
         """
-        self.reddit = praw.Reddit(
-            client_id=clientId,
-            client_secret=secret,
-            user_agent=topic,
-        )
+        try:
+            self.reddit = praw.Reddit(
+                client_id=clientId,
+                client_secret=secret,
+                user_agent=topic,
+            )
+            # Test Reddit Connection using Reddit crawl() function
+            for test in self.reddit.subreddit('all').new():
+                break
+        except Exception as e:
+            print("Authentication Failed, Wrong client_id or client_secret.",e)
+            exit()
 
     def crawl(self, db):
         """
@@ -51,6 +58,7 @@ class RedditCrawler(Crawler):
         -------
         None
         """
+        print("Crawling Reddit now...")
         subreddit = self.reddit.subreddit('Singapore')
         for post in subreddit.search("jail OR charged OR arrested OR sentenced", limit=None):
             post.comments.replace_more(limit=None)

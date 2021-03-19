@@ -32,15 +32,16 @@ class TwitterCrawler(Crawler):
                 is the access token secret that is use along with the access token 
 
         """
-        consumer_key = "OrRuKndlEY6Xx3sOEuWaW3dPx"
-        consumer_secret = "hwXN4qFNrCSRTy3k8tZWJ5uqJREGI8gJVDhpJj7YZ5Gs3PLfbL"
-        access_token = "1368589570518831106-JNKPyMGTUgifprCjUJqFZoVa0NzOSx"
-        access_token_secret = "Yqe9FSSawbubSLQdv7Skifbh02gVnmsXxRF3Xow2upl5U"    
-        auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-        auth.set_access_token(access_token, token_secret)
-        api = tweepy.API(auth)
-        
-
+        self.auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+        self.auth.set_access_token(access_token, token_secret)
+        self.api = tweepy.API(self.auth, wait_on_rate_limit=True)
+        # Test Twitter connection using crawl() method function
+        try:
+            for test in tweepy.Cursor(self.api.search, q="a").items(1):
+                continue
+        except Exception as e:
+            print("Authentication Failed, Wrong authentication details!",e)
+            exit()
 
     # Crawl function
     def crawl(self, db):
@@ -56,6 +57,7 @@ class TwitterCrawler(Crawler):
         -------
         None
         """
+        print("Crawling Twitter now...")
         keys = "(charged OR jail OR arrested OR sentenced) AND singapore"
         for tweet in tweepy.Cursor(self.api.search, lang="en", q=keys+'-filter:retweets').items():
             db.insert("tweet", str(tweet.user.screen_name),
