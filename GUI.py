@@ -120,11 +120,14 @@ class GUI:
 
     # plotting function: To plot the graph
     def plotting(self):
-        objects = ('scam', 'drug', 'violence', 'sexOffence')
-        y_pos = np.arange(len(objects))
-        performance = self.redditObject.getCrimeScore()
-        plt.barh(y_pos, performance, align='center', alpha=0.7)
-        plt.yticks(y_pos, objects)
+        key = list(self.redditObject.getCrimeScore().keys())
+        value = list(self.redditObject.getCrimeScore().values())
+
+        # objects = ('scam', 'drug', 'violence', 'sexOffence')
+        # y_pos = np.arange(len(objects))
+        # performance = self.redditObject.getCrimeScore()
+        plt.barh(range(len(self.redditObject.getCrimeScore())), value, tick_label=key)
+        # plt.yticks(y_pos, objects)
         plt.ylabel('Category')
         plt.xlabel('Frequency')
         plt.title('Keyword Category in the News')
