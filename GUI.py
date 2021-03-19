@@ -91,20 +91,17 @@ class GUI:
                           pady=5)
 
     # Refresh function: To refresh the table
-
     def refresh(self):
         for i in self.trv.get_children():
             self.trv.delete(i)
         # print("table")
 
     # Update function: To update table after the search function
-
     def update(self, rows):
         for i in rows:
             self.trv.insert('', 'end', values=i)
 
     # Search function: To search the keyword
-
     def search(self):
         e = simpledialog.askstring(title="Data Crawled",
                                    prompt="What do you want to search?:")
@@ -119,7 +116,7 @@ class GUI:
     #   newWindow.geometry("300x300")
 
     # plotting function: To plot the graph
-    def plotting(self):
+    def tplotting(self):
         objects = ('scam', 'drug', 'violence', 'sexOffence')
         y_pos = np.arange(len(objects))
         performance = [self.redditObject.getCrimeScore()]
@@ -127,6 +124,19 @@ class GUI:
         plt.yticks(y_pos, objects)
         plt.ylabel('Category')
         plt.xlabel('Frequency')
+        plt.title('Keyword Category in the News')
+
+        plt.show()
+
+        print("Plot")
+    
+    # plotting function: To plot the graph
+    def plotting(self):
+        key = list(self.redditObject.getCrimeScore().keys())
+        value = list(self.redditObject.getCrimeScore().values())
+        plt.bar(range(len(self.redditObject.getCrimeScore())),value,tick_label=key)
+        plt.xlabel('Category')
+        plt.ylabel('Frequency')
         plt.title('Keyword Category in the News')
 
         plt.show()
