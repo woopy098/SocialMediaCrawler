@@ -14,9 +14,17 @@ from tkinter import simpledialog
 import mysql.connector
 
 i = 0
+<<<<<<< HEAD
 twcrawl = TwitterCrawler.TwitterCrawler()
 rdcrawl = RedditCrawler("Shopping_habits", "zSqCr7ZeezCMgQ", "-K97i2uEaVP9ae69IGGJ8HXp7Xz3LA")
 db = Database.Database()
+=======
+twcrawl = TwitterCrawler("OrRuKndlEY6Xx3sOEuWaW3dPx", "hwXN4qFNrCSRTy3k8tZWJ5uqJREGI8gJVDhpJj7YZ5Gs3PLfbL",
+                         "1368589570518831106-JNKPyMGTUgifprCjUJqFZoVa0NzOSx",
+                         "Yqe9FSSawbubSLQdv7Skifbh02gVnmsXxRF3Xow2upl5U")
+rdcrawl = RedditCrawler("Shopping_habits", "zSqCr7ZeezCMgQ", "-K97i2uEaVP9ae69IGGJ8HXp7Xz3LA")
+db = Database("localhost", "root", "mypass", "sqldatabase")
+>>>>>>> 4d91aac382aaffef73c9d8be275cabc4b0c9b386
 myFont = ('Arial', 15, 'bold')
 myFont1 = ('broadway', 15, 'bold')
 
@@ -43,6 +51,7 @@ def update(rows):
         trv.insert('', 'end', values=i)
 
 
+<<<<<<< HEAD
 # plotting function: To plot the graph
 def window():
     newWindow = Toplevel(root)
@@ -56,13 +65,43 @@ def plotting():
     plt.hist(house_prices, 50)
     s = plt.show()
     # print("Bar chart")
+=======
+# window function: To open new window when plotting the graph
+# def window():
+#   newWindow = Toplevel(root)
+#   newWindow.title("Graph")
+#   newWindow.geometry("300x300")
+
+# plotting function: To plot the graph
+def plotting():
+    a_dictionary = {"a": 1, "b": 2, "c": 3}
+    keys = a_dictionary.keys()
+    values = a_dictionary.values()
+    matplotlib.pyplot.bar(keys, values)
+    # new_dict = {}
+    # for value in word_dict.values():
+    #     if value in word_dict:
+    #        new_dict += 1
+    #    else:
+    #        new_dict = 1
+    #    y = new_dict[value]
+    #    x = word_dict[value]
+    # print(new_dict)
+    # pyplot.plot(x, y)
+    # pyplot.show()
+>>>>>>> 4d91aac382aaffef73c9d8be275cabc4b0c9b386
 
 
 # crawldata function: To start the crawling of data from the website
 def crawldata():
     db.truncatetable()
+<<<<<<< HEAD
     twcrawl.crawl()
     rdcrawl.crawl()
+=======
+    twcrawl.crawl(db)
+    rdcrawl.crawl(db)
+>>>>>>> 4d91aac382aaffef73c9d8be275cabc4b0c9b386
     messagebox.showinfo("Popup", "Crawl Done")
 
 
@@ -131,5 +170,9 @@ button3.pack(side=tk.BOTTOM,
              padx=5,
              pady=5)
 
+<<<<<<< HEAD
 window(plotting())
+=======
+word_dict = {'bangs': 1, 'sees': 1, 'stuff': 1}
+>>>>>>> 4d91aac382aaffef73c9d8be275cabc4b0c9b386
 root.mainloop()

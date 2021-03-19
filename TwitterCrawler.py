@@ -1,27 +1,64 @@
 import tweepy
+from tweepy import TweepError
 from Crawler import Crawler
-from Database import Database
-consumer_key = "OrRuKndlEY6Xx3sOEuWaW3dPx"
-consumer_secret = "hwXN4qFNrCSRTy3k8tZWJ5uqJREGI8gJVDhpJj7YZ5Gs3PLfbL"
-access_token = "1368589570518831106-JNKPyMGTUgifprCjUJqFZoVa0NzOSx"
-access_token_secret = "Yqe9FSSawbubSLQdv7Skifbh02gVnmsXxRF3Xow2upl5U"
-
 
 class TwitterCrawler(Crawler):
-    def __init__(self):
+    """
+    A class to represent twitter Crawler
+
+    ...
+    Attributes
+    ----------
+    Auth : Object
+        Initialize twitter Connection using tweepy
+    API : Object
+        Initialize tweepy API
+
+    Methods
+    -------
+    crawl():
+        Crawl Singapore crimes related data from twitter.
+    """
+    def __init__(self, consumer_key, consumer_secret, access_token, token_secret):
+        """
+        Constructs all the necessary attributes for Tweepy a library to crawl from twitter, and initialize connection to twitter API
+
+        Parameters
+        ----------
+            Consumer_Key: str
+                The API key that twitter issues to the consumer
+            Consumer_secret: str
+                The password that is used to request access to twitter
+            access_token: str
+                is issued to the consumer by twitter to allow access priviledge
+            token_secret
+                is the access token secret that is use along with the access token 
+        """
         self.auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-        self.auth.set_access_token(access_token, access_token_secret)
-        self.api = tweepy.API(self.auth)
-        self.number_of_tweets = 1000
+        self.auth.set_access_token(access_token, token_secret)
+        self.api = tweepy.API(self.auth, wait_on_rate_limit=True)
+
     # Crawl function
+    def crawl(self, db):
+        """
+        Crawl Singapore crimes related data from Twitter.
 
-    def crawl(self):
-        db = Database()
-        for t in tweepy.Cursor(self.api.user_timeline, id="straits_times", tweet_mode="extended").items(self.number_of_tweets):
-            # print("Text: {}\n Likes: {}\n Date: {}\n User: {}\n Retweet count: {}".format(
-            #     t.full_text, t.favorite_count, t.created_at, t.user.screen_name, t.retweet_count))
-            db.insert("tweet", str(t.user.screen_name), str(t.full_text), t.favorite_count, t.created_at, t.retweet_count)
-        db.disconnect()
+        Parameters
+        ----------
+        db: Database object
+            Initialize connection to MySQL Database and inserting data
 
-#crawler = TwitterCrawler()
-#crawler.crawl()
+        Returns
+        -------
+        None
+        """
+        try:
+            print("Crawling Twitter now...")
+            keys = "(charged OR jail OR arrested OR sentenced) AND singapore"
+            for tweet in tweepy.Cursor(self.api.search, lang="en", q=keys+'-filter:retweets').items():
+                db.insert("tweet", str(tweet.user.screen_name),
+                    str(tweet.text), tweet.favorite_count, tweet.created_at, tweet.retweet_count)
+        except TweepError as terr:
+            print("Wrong Twitter authentication details!\n",terr)
+        except Exception as e:
+            print("Unable to connect to database!\n",e)

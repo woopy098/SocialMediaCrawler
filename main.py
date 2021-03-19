@@ -1,21 +1,14 @@
-import Database as Database
+import config as c
+from Database import Database
 from RedditCrawler import RedditCrawler
 from TwitterCrawler import TwitterCrawler
+from GUI import GUI
+import tweepy
 
 print("Start")
-
-#db.createTable()
-#db.truncatetable()
-#db.createTable()
-crawler = RedditCrawler("Shopping_habits","zSqCr7ZeezCMgQ","-K97i2uEaVP9ae69IGGJ8HXp7Xz3LA")
-crawler.crawl2()
-#tcrawl = TwitterCrawler()
-#tcrawl.crawl()
-#db.read(10) #user able to set the limit that they want
-
-#keyword = "kill"
-#db.search(keyword)
-#db.disconnect()
-print("end")
-
-
+db = Database(c.host, c.user, c.password, c.database)
+reddit = RedditCrawler("Crimes", c.reddit_id, c.reddit_secret)
+twitter = TwitterCrawler(c.consumer_key, c.consumer_secret, c.access_token, c.access_token_secret)
+ui = GUI(db,reddit,twitter)
+ui.root.mainloop
+db.disconnect()
