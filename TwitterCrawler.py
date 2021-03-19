@@ -37,7 +37,7 @@ class TwitterCrawler(Crawler):
         # Test Twitter connection using crawl() method function
         try:
             for test in tweepy.Cursor(self.api.search, q="a").items(1):
-                print("Twitter Connection Successful!")
+                continue
         except Exception as e:
             print("Authentication Failed, Wrong authentication details!",e)
             exit()

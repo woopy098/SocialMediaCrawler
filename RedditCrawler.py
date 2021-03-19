@@ -40,10 +40,9 @@ class RedditCrawler(Crawler):
             )
             # Test Reddit Connection using Reddit crawl() function
             for test in self.reddit.subreddit('all').new():
-                print("Reddit Connection Successful!")
                 break
         except Exception as e:
-            print("Authentication Failed, Wrong client_id or client_secret.")
+            print("Authentication Failed, Wrong client_id or client_secret.",e)
             exit()
 
     def crawl(self, db):
