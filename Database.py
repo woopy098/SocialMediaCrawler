@@ -1,6 +1,7 @@
 import mysql.connector
 from mysql.connector import Error
 
+
 class Database:
     """
     A class used to represent Database
@@ -26,7 +27,8 @@ class Database:
     printnews(category):
         Printing news base on social media (reddit or twitter)
     """
-    def __init__(self,host,user,password,database):
+
+    def __init__(self, host, user, password, database):
         """
          Construct all the necessary attributes for Database and initialize the logins
         :param host: str. server of the database
@@ -38,26 +40,27 @@ class Database:
         self.user = user
         self.password = password
         self.database = database
-        self.charset = 'utf8mb4'
-        self._connection() #call _connection function
+        self.charset = "utf8mb4"
+        self._connection()  # call _connection function
 
-    def _connection(self): #private method
+    def _connection(self):  # private method
         """
             Create connection between python and mysql
             ----------
         """
         try:
             conn = mysql.connector.connect(
-                host = self.host,
-                user = self.user,
-                password = self.password,
-                database = self.database,
-                charset = self.charset
+                host=self.host,
+                user=self.user,
+                password=self.password,
+                database=self.database,
+                charset=self.charset
             )
+            print("database connected")
             self._db = conn
             print("\ndatabase connected")
         except Error as err:
-            print("error while connecting to database",err)
+            print("error while connecting to database", err)
 
     def createTable(self):
         """
@@ -71,14 +74,14 @@ class Database:
               "likes INT , dates DATETIME , commented INT )"
         try:
             cursor.execute(sql)
-            self._db.commit() #to update database
+            self._db.commit()  # to update database
         except Error as err:
-            print("error creating table,",err)
+            print("error creating table,", err)
             self.truncatetable()
             print("table truncated")
         cursor.close()
 
-    def disconnect(self): #_ to make it private
+    def disconnect(self):  # _ to make it private
         """
         Disconnect from database
         :return:
@@ -87,7 +90,7 @@ class Database:
         self._db.close()
         print("connection close")
 
-    def insert(self, type, user, text,likes,datecreate,commented):
+    def insert(self, type, user, text, likes, datecreate, commented):
         """
         inserting data into MYSQL database
         :param type: str. type of post (reddit or twitter)
@@ -99,16 +102,17 @@ class Database:
         :return:
         None
         """
-        cursor = self._db.cursor() #access sql
-        val = (type, user,text,likes,datecreate,commented)
+        cursor = self._db.cursor()  # access sql
+        val = (type, user, text, likes, datecreate, commented)
         try:
-            cursor.execute("INSERT INTO crawleddata (type,user,text,likes,dates,commented) VALUES (%s, %s,%s, %s, %s,%s)", val)
-            self._db.commit() #update database
+            cursor.execute(
+                "INSERT INTO crawleddata (type,user,text,likes,dates,commented) VALUES (%s, %s,%s, %s, %s,%s)", val)
+            self._db.commit()  # update database
         except Error as err:
-            print("error inserting data into database.",err)
-        cursor.close() #close cursor everytime after use for security purposes
+            print("error inserting data into database.", err)
+        cursor.close()  # close cursor everytime after use for security purposes
 
-    def search(self,keyword):
+    def search(self, keyword):
         """
         search keyword to find news
         :param keyword: str
@@ -121,7 +125,7 @@ class Database:
             cursor.execute(sql)
             result = cursor.fetchall()
         except Error as err:
-            print("error searching for keyword. ",err)
+            print("error searching for keyword. ", err)
         cursor.close()
         return result
 
@@ -133,12 +137,13 @@ class Database:
         """
         cursor = self._db.cursor()
         try:
-            cursor.execute("TRUNCATE TABLE crawleddata")  # THIS IS TO REMOVE ITEM FROM THE TABLE SAVED PREVIOUSLY
+            # THIS IS TO REMOVE ITEM FROM THE TABLE SAVED PREVIOUSLY
+            cursor.execute("TRUNCATE TABLE crawleddata")
         except Error as err:
-            print("error deleteing table",err)
+            print("error deleteing table", err)
         cursor.close()
 
-    def printnews(self,category): #print specific news
+    def printnews(self, category):  # print specific news
         """
         Printing news base on social media (reddit or twitter)
         :param category: str
@@ -158,7 +163,7 @@ class Database:
             cursor.execute(sql)   # select all from table(comment)
             result = cursor.fetchall()
         except Error as err:
-            print("error printing news",err)
+            print("error printing news", err)
             result = None
         cursor.close()
         return result
