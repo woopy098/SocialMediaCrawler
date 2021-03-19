@@ -1,6 +1,6 @@
+from Crawler import Crawler
 import tweepy
 from tweepy import TweepError
-from Crawler import Crawler
 
 
 class TwitterCrawler(Crawler):
