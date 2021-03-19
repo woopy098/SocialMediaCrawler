@@ -27,12 +27,24 @@ class GUI:
         self.twitter = twitter
         self.root = Tk(className=' Crawler Data for Reddit & Twitter')
         self.root.geometry("800x500")
-        self.wrapper1 = LabelFrame(self.root, text="Crawl Data")
-        self.wrapper1.pack(fill="both", expand="yes", padx=20, pady=10)
         self.frame = tk.Frame(self.root)
         self.frame.pack()
-        self.style = ttk.Style()
-        self.trv = ttk.Treeview(wrapper1,
+        self.w = Label(self.frame,
+                       text="Welcome to the Crawler Data GUI",
+                       font="50")
+        self.w['font'] = self.myFont1
+        self.w.pack(side=tk.TOP)
+        self.button0 = tk.Button(self.frame,
+                                 text="Search",
+                                 fg="black",
+                                 command=self.search)
+        self.button0['font'] = self.myFont
+        self.button0.pack(side=tk.TOP,
+                          padx=5,
+                          pady=5)
+        self.wrapper1 = LabelFrame(self.root, text="Crawl Data")
+        self.wrapper1.pack(fill="both", expand="yes", padx=20, pady=10)
+        self.trv = ttk.Treeview(self.wrapper1,
                                 columns=(1, 2, 3, 4, 5, 6),
                                 show="headings",
                                 height="20")
@@ -43,54 +55,45 @@ class GUI:
         self.trv.heading(4, text="text")
         self.trv.heading(5, text="likes")
         self.trv.heading(6, text="dates & times")
-        self.w = Label(frame,
-                       text="Welcome to the Crawler Data GUI",
-                       font="50")
-        self.w['font'] = self.myFont1
-        self.w.pack(side=tk.TOP)
-        self.button0 = tk.Button(frame,
-                                 text="Search",
-                                 fg="black",
-                                 command=search)
-        self.button0['font'] = myFont
-        self.button0.pack(side=tk.TOP,
+
+        self.button1 = tk.Button(self.frame,
+                                 text="Exit",
+                                 fg="red",
+                                 command=quit)
+        self.button1['font'] = self.myFont
+        self.button1.pack(side=tk.BOTTOM,
                           padx=5,
                           pady=5)
-        self.button1 = tk.Button(frame,
-                    text="Exit",
-                    fg="red",
-                    command=quit)
-        self.button1['font'] = myFont
-        self.button1.pack(side=tk.BOTTOM,
-                padx=5,
-                pady=5)
-        self.button2 = tk.Button(frame,
-                            text="Plot",
-                            fg="black",
-                            command=plotting)
-        self.button2['font'] = myFont
+        self.button2 = tk.Button(self.frame,
+                                 text="Plot",
+                                 fg="black",
+                                 command=self.plotting)
+        self.button2['font'] = self.myFont
         self.button2.pack(side=tk.BOTTOM,
-                    padx=5,
-                    pady=5)
-        self.button3 = tk.Button(frame,
-                            text="Crawl Data",
-                            fg="black",
-                            command=crawldata)
-        self.button3['font'] = myFont
+                          padx=5,
+                          pady=5)
+        self.button3 = tk.Button(self.frame,
+                                 text="Crawl Data",
+                                 fg="black",
+                                 command=self.crawldata)
+        self.button3['font'] = self.myFont
         self.button3.pack(side=tk.BOTTOM,
-                    padx=5,
-                    pady=5)
+                          padx=5,
+                          pady=5)
+
     # Refresh function: To refresh the table
 
     def refresh(self):
-        for i in trv.get_children():
-            trv.delete(i)
+        for i in self.trv.get_children():
+            self.trv.delete(i)
         # print("table")
+
     # Update function: To update table after the search function
 
     def update(self, rows):
         for i in rows:
-            trv.insert('', 'end', values=i)
+            self.trv.insert('', 'end', values=i)
+
     # Search function: To search the keyword
 
     def search(self):
@@ -128,6 +131,6 @@ class GUI:
 
     def crawldata(self):
         self.db.createTable()
-        self.reddit.crawl()
-        self.twitter.crawl()
+        self.reddit.crawl(self.db)
+        self.twitter.crawl(self.db)
         messagebox.showinfo("Popup", "Crawl Done")
