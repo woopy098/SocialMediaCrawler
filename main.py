@@ -39,7 +39,6 @@ print("Reddit Sentiment score  :",redditObject.getSentimentScore())
 print("Reddit Sentiment        :",redditObject.getSentiment())
 print("Reddit Crime Count      :",redditObject.getCrimeScore())
 
-test= socialMedia.getCrimeScore()
 
 
 # #keyword = "kill"

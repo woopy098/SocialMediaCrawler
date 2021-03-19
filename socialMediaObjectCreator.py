@@ -21,7 +21,10 @@ class socialMedia:
 
     def __init__(self,database,socialMediaType):
         """
-        Constructs all the necessary attributes for the social media, and calculate social media's sentiment score
+        Constructs all the necessary attributes for the social media:
+            Generates Object Crime score
+            Generates Object platform sentiment score
+
 
         Parameters
         ----------
@@ -33,7 +36,10 @@ class socialMedia:
         self.__database= database                   
         self.__socialMediaType = socialMediaType
         self.__overallSentiment = 0
+        self.__crimeScore= {"scam": 0,"drug": 0,"violence": 0, "sexOffence": 0}
+        self.__generateCrimeScore()
         self.__readSentiment()
+        
 
     def getCrimeScore(self):
         """
@@ -47,7 +53,8 @@ class socialMedia:
         -------
             Dictionary : key = crime type, value = crime count
         """
-        return self.__generateCrimeScore()
+        return self.__crimeScore
+
     def getSentimentScore(self):
         """
         get social media's sentiment score
@@ -61,6 +68,7 @@ class socialMedia:
             double: social media's sentiment score
         """
         return self.__overallSentiment
+    
     def getSentiment(self):
         """
         get social media's sentiment type
@@ -86,9 +94,7 @@ class socialMedia:
 
         Returns
         -------
-            wordDict : Dictionary
-                key = crime type, value = crime count
-                
+            None 
         """
         scam = {"cheat", "cheating", "cheated","scam","scammed", 
         "scamming", "deceive","deceived","decieving","extort","extorted",
@@ -106,20 +112,19 @@ class socialMedia:
         sexOffence = {"rape","raped","raping","molest","molested",
         "molesting","molester","sexual","paedophile","upskirt"}
         
-        wordDict= {"scam": 0,"drug": 0,"violence": 0, "sexOffence": 0}
+        #wordDict= {"scam": 0,"drug": 0,"violence": 0, "sexOffence": 0}
 
         for x in self.__database.printnews(self.__socialMediaType):
             words= str(x[3]).lower().split()
             for word in words:
                 if word in scam:
-                    wordDict["scam"]+=1                
+                    self.__crimeScore["scam"]+=1                
                 if word in drug:
-                    wordDict["drug"]+=1  
+                    self.__crimeScore["drug"]+=1  
                 if word in violence:
-                    wordDict["violence"]+=1
+                    self.__crimeScore["violence"]+=1
                 if word in sexOffence:
-                    wordDict["sexOffence"]+=1
-        return wordDict
+                    self.__crimeScore["sexOffence"]+=1
 
     def __analyzeSentiment(self,text):
         """
