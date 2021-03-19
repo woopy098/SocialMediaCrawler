@@ -2,6 +2,7 @@ import config as c
 from Database import Database
 from RedditCrawler import RedditCrawler
 from TwitterCrawler import TwitterCrawler
+import tweepy
 
 print("Start")
 db = Database(c.host, c.user, c.password, c.database)

@@ -61,6 +61,6 @@ class RedditCrawler(Crawler):
                 db.insert("post", str(post.author), str(post.title), str(post.score),
                           datetime.utcfromtimestamp(post.created_utc), len(comment))
         except ResponseException as rerror:
-            print("Wrong authentication details\n", rerror)
+            print("Wrong Reddit authentication details\n", rerror)
         except Exception as e:
             print("Unable to connect to the database\n", e)
