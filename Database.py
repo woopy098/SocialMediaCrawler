@@ -41,9 +41,9 @@ class Database:
         self.password = password
         self.database = database
         self.charset = "utf8mb4"
-        self._connection()  # call _connection function
+        self.__connection()  # call _connection function
 
-    def _connection(self):  # private method
+    def __connection(self):  # private method
         """
             Create connection between python and mysql
             ----------
