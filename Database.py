@@ -10,7 +10,7 @@ class Database:
     ----------
     self._db : Object
         Database connection object to access database
-
+    '''
     :Methods
     _connection():
         private method to set up connection to database.
@@ -56,7 +56,6 @@ class Database:
                 database=self.database,
                 charset=self.charset
             )
-            print("database connected")
             self._db = conn
             print("\ndatabase connected")
         except Error as err:
