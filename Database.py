@@ -103,7 +103,8 @@ class Database:
         """
         cursor = self._db.cursor()
         try:
-            cursor.execute("SELECT * FROM crawleddata LIMIT " + (str(limit)))  # select all from table(comment)
+            # select all from table(comment)
+            cursor.execute("SELECT * FROM crawleddata LIMIT " + (str(limit)))
             result = cursor.fetchall()
         except Error as err:
             print("error reading data", err)
@@ -139,7 +140,8 @@ class Database:
         """
         cursor = self._db.cursor()
         try:
-            cursor.execute("TRUNCATE TABLE crawleddata")  # THIS IS TO REMOVE ITEM FROM THE TABLE SAVED PREVIOUSLY
+            # THIS IS TO REMOVE ITEM FROM THE TABLE SAVED PREVIOUSLY
+            cursor.execute("TRUNCATE TABLE crawleddata")
         except Error as err:
             print("error deleteing table", err)
         # updating code here
