@@ -10,6 +10,21 @@ class Database:
     self._db : Object
         Database connection object to access database
 
+    :Methods
+    _connection():
+        private method to set up connection to database.
+    createTable():
+        Create Table in the database, if table exist it will truncate table to clear data previously
+    disconnect():
+        Disconnect from database
+    insert(type, user, text,likes,datecreate,commented):
+        inserting data into MYSQL database
+    search(keyword):
+        search keyword to look for news
+    truncatetable():
+         remove item from table that was saved previously
+    printnews(category):
+        Printing news base on social media (reddit or twitter)
     """
 
     def __init__(self,host,user,password,database):
@@ -40,6 +55,7 @@ class Database:
                 database = self.database,
                 charset = self.charset
             )
+            print("database connected")
             self._db = conn
         except Error as err:
             print("error while connecting to database",err)
@@ -48,6 +64,7 @@ class Database:
         """
         Create Table in the database, if table exist it will truncate table to clear data previously
         :return:
+        None
         """
         cursor = self._db.cursor()
         sql = "CREATE TABLE crawleddata (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, type VARCHAR(20) COLLATE utf8mb4_unicode_ci NOT NULL,user VARCHAR(100) COLLATE utf8mb4_unicode_ci NOT NULL,"\
@@ -65,6 +82,8 @@ class Database:
     def disconnect(self): #_ to make it private
         """
         Disconnect from database
+        :return:
+        None
         """
         self._db.close()
         print("connection close")
@@ -78,6 +97,8 @@ class Database:
         :param likes: str. the amount of likes for the post
         :param datecreate: str. the date and time of the post that was created
         :param commented: str. number of comments for the post
+        :return:
+        None
         """
         cursor = self._db.cursor() #access sql
         val = (type, user,text,likes,datecreate,commented)
@@ -90,7 +111,7 @@ class Database:
 
     def search(self,keyword):
         """
-        search keyword to look for news
+        search keyword to find news
         :param keyword: str
         :return:
          result: str
@@ -108,6 +129,8 @@ class Database:
     def truncatetable(self):
         """
         to remove item from table(crawleddata) that was saved previously
+        :return:
+        None
         """
         cursor = self._db.cursor()
         try:
