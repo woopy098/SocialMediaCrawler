@@ -1,16 +1,9 @@
+import config as c
 from Database import Database
 from RedditCrawler import RedditCrawler
 from socialMediaObjectCreator import socialMedia
 from TwitterCrawler import TwitterCrawler
-
-host = "localhost"
-password = "password"
-user = "root"
-database = "sqldatabase"
-consumer_key = "OrRuKndlEY6Xx3sOEuWaW3dPx"
-consumer_secret = "hwXN4qFNrCSRTy3k8tZWJ5uqJREGI8gJVDhpJj7YZ5Gs3PLfbL"
-access_token = "1368589570518831106-JNKPyMGTUgifprCjUJqFZoVa0NzOSx"
-access_token_secret = "Yqe9FSSawbubSLQdv7Skifbh02gVnmsXxRF3Xow2upl5U"
+from GUI import GUI
 
 
 
@@ -43,4 +36,9 @@ print("Reddit Crime Count      :",redditObject.getCrimeScore())
 
 # #keyword = "kill"
 # #db.search(keyword)
+db = Database(c.host, c.user, c.password, c.database)
+reddit = RedditCrawler("Crimes", c.reddit_id, c.reddit_secret)
+twitter = TwitterCrawler(c.consumer_key, c.consumer_secret, c.access_token, c.access_token_secret)
+ui = GUI(db, reddit, twitter)
+ui.root.mainloop()
 db.disconnect()

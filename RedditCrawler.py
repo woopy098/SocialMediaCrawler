@@ -1,4 +1,5 @@
 import praw
+from prawcore import ResponseException
 from datetime import datetime
 from Crawler import Crawler
 
@@ -40,7 +41,7 @@ class RedditCrawler(Crawler):
 
     def crawl(self, db):
         """
-        Crawl Singapore crimes related data from twitter.
+        Crawl Singapore crimes related data from Reddit.
 
         Parameters
         ----------
@@ -51,10 +52,15 @@ class RedditCrawler(Crawler):
         -------
         None
         """
-        subreddit = self.reddit.subreddit('Singapore')
-        for post in subreddit.search("jail OR charged OR arrested OR sentenced", limit=None):
-            post.comments.replace_more(limit=None)
-            comment = post.comments.list()
-            db.insert("post", str(post.author), str(post.title), str(post.score),
-                      datetime.utcfromtimestamp(post.created_utc), len(comment))
-            
+        try:
+            print("Crawling Reddit now...")
+            subreddit = self.reddit.subreddit('Singapore')
+            for post in subreddit.search("jail OR charged OR arrested OR sentenced", limit=None):
+                post.comments.replace_more(limit=None)
+                comment = post.comments.list()
+                db.insert("post", str(post.author), str(post.title), str(post.score),
+                          datetime.utcfromtimestamp(post.created_utc), len(comment))
+        except ResponseException as rerror:
+            print("Wrong Reddit authentication details\n", rerror)
+        except Exception as e:
+            print("Unable to connect to the database\n", e)
