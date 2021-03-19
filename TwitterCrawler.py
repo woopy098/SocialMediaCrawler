@@ -1,6 +1,8 @@
 from Crawler import Crawler
 import tweepy
 from tweepy import TweepError
+import re
+import config as c
 
 
 class TwitterCrawler(Crawler):
@@ -57,9 +59,9 @@ class TwitterCrawler(Crawler):
         try:
             print("Crawling Twitter now...")
             keys = "(charged OR jail OR arrested OR sentenced) AND singapore"
-            for tweet in tweepy.Cursor(self.api.search, lang="en", q=keys+'-filter:retweets').items():
+            for tweet in tweepy.Cursor(self.api.search, lang="en", tweet_mode="extended", q=keys+'-filter:retweets').items():
                 db.insert("tweet", str(tweet.user.screen_name),
-                          str(tweet.text), tweet.favorite_count, tweet.created_at, tweet.retweet_count)
+                          re.sub(r"http\S+", "", tweet.full_text), tweet.favorite_count, tweet.created_at, tweet.retweet_count)
         except TweepError as terr:
             print("Wrong Twitter authentication details!\n", terr)
         except Exception as e:
