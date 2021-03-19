@@ -122,23 +122,25 @@ class GUI:
     def plotting(self):
         key = list(self.redditObject.getCrimeScore().keys())
         value = list(self.redditObject.getCrimeScore().values())
-
+        key1 = list(self.twitterObject.getCrimeScore().keys())
+        value1 = list(self.twitterObject.getCrimeScore().values())
         # objects = ('scam', 'drug', 'violence', 'sexOffence')
         # y_pos = np.arange(len(objects))
         # performance = self.redditObject.getCrimeScore()
-        plt.barh(range(len(self.redditObject.getCrimeScore())), value, tick_label=key)
+        plt.barh(range(len(self.twitterObject.getCrimeScore())), value1, tick_label=key1, alpha=0.5)
+        plt.barh(range(len(self.redditObject.getCrimeScore())), value, tick_label=key, alpha=0.9)
         # plt.yticks(y_pos, objects)
         plt.ylabel('Category')
         plt.xlabel('Frequency')
         plt.title('Keyword Category in the News')
-
+       
         plt.show()
 
         print("Plot")
 
     # crawldata function: To start the crawling of data from the website
     def crawldata(self):
-        #self.db.truncatetable()
+        self.db.truncatetable()
         self.db.createTable()
         self.reddit.crawl(self.db)
         self.twitter.crawl(self.db)
