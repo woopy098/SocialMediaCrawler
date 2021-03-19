@@ -1,5 +1,6 @@
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
+
 class socialMedia:
     """
     A class to represent social media
@@ -19,7 +20,7 @@ class socialMedia:
         returns str: Category of social media's sentiment based on sentiment score    
     """
 
-    def __init__(self,database,socialMediaType):
+    def __init__(self, database, socialMediaType):
         """
         Constructs all the necessary attributes for the social media:
             Generates Object Crime score
@@ -33,13 +34,12 @@ class socialMedia:
             socialMediaType: str
                 "reddit"= database containing reddit, "twitter" = database containing twitter
         """
-        self.__database= database                   
+        self.__database = database
         self.__socialMediaType = socialMediaType
         self.__overallSentiment = 0
-        self.__crimeScore= {"scam": 0,"drug": 0,"violence": 0, "sexOffence": 0}
+        self.__crimeScore = {"scam": 0, "drug": 0, "violence": 0, "sexOffence": 0}
         self.__generateCrimeScore()
         self.__readSentiment()
-        
 
     def getCrimeScore(self):
         """
@@ -68,7 +68,7 @@ class socialMedia:
             double: social media's sentiment score
         """
         return self.__overallSentiment
-    
+
     def getSentiment(self):
         """
         get social media's sentiment type
@@ -96,37 +96,37 @@ class socialMedia:
         -------
             None 
         """
-        scam = {"cheat", "cheating", "cheated","scam","scammed", 
-        "scamming", "deceive","deceived","decieving","extort","extorted",
-        "extortion","impersonate","imporsonation","impersonating","embezzle",
-        "embezzled","embezzeling","embezze","embezzlement","bribe","bribed",
-        "bribery","forge","forged","forgery"}
-        drug = {"drug","drugs","smuggle","cannibis","marijuana",
-        "cocaine","heroin","overdose","smuggle","narcotics","bullet","bullets",
-        "trafficking"}
-        violence= {"abuse","abused","abusing","attack","attacked"
-        ,"attacking","attacker","assault","assaulted","assaulting","stabed",
-        "stabbing","murder","murdered","kill","killed","torture",
-        "torturing","tortured","man slaugter","weapon","weapons",
-        "knife","sword","gun","firearm","gang","gangster"}
-        sexOffence = {"rape","raped","raping","molest","molested",
-        "molesting","molester","sexual","paedophile","upskirt"}
-        
-        #wordDict= {"scam": 0,"drug": 0,"violence": 0, "sexOffence": 0}
+        scam = {"cheat", "cheating", "cheated", "scam", "scammed",
+                "scamming", "deceive", "deceived", "decieving", "extort", "extorted",
+                "extortion", "impersonate", "imporsonation", "impersonating", "embezzle",
+                "embezzled", "embezzeling", "embezze", "embezzlement", "bribe", "bribed",
+                "bribery", "forge", "forged", "forgery"}
+        drug = {"drug", "drugs", "smuggle", "cannibis", "marijuana",
+                "cocaine", "heroin", "overdose", "smuggle", "narcotics", "bullet", "bullets",
+                "trafficking"}
+        violence = {"abuse", "abused", "abusing", "attack", "attacked"
+            , "attacking", "attacker", "assault", "assaulted", "assaulting", "stabed",
+                    "stabbing", "murder", "murdered", "kill", "killed", "torture",
+                    "torturing", "tortured", "man slaugter", "weapon", "weapons",
+                    "knife", "sword", "gun", "firearm", "gang", "gangster"}
+        sexOffence = {"rape", "raped", "raping", "molest", "molested",
+                      "molesting", "molester", "sexual", "paedophile", "upskirt"}
+
+        # wordDict= {"scam": 0,"drug": 0,"violence": 0, "sexOffence": 0}
 
         for x in self.__database.printnews(self.__socialMediaType):
-            words= str(x[3]).lower().split()
+            words = str(x[3]).lower().split()
             for word in words:
                 if word in scam:
-                    self.__crimeScore["scam"]+=1                
+                    self.__crimeScore["scam"] += 1
                 if word in drug:
-                    self.__crimeScore["drug"]+=1  
+                    self.__crimeScore["drug"] += 1
                 if word in violence:
-                    self.__crimeScore["violence"]+=1
+                    self.__crimeScore["violence"] += 1
                 if word in sexOffence:
-                    self.__crimeScore["sexOffence"]+=1
+                    self.__crimeScore["sexOffence"] += 1
 
-    def __analyzeSentiment(self,text):
+    def __analyzeSentiment(self, text):
         """
         Takes in string and calculates sentiment score: -1(negative) to 1(postitive)
         Parameters
@@ -139,7 +139,7 @@ class socialMedia:
             score : double
                 score for the text's sentiment
         """
-        score= SentimentIntensityAnalyzer().polarity_scores(text)
+        score = SentimentIntensityAnalyzer().polarity_scores(text)
         return score['compound']
 
     def __readSentiment(self):
@@ -156,11 +156,12 @@ class socialMedia:
         -------
             None
         """
-        rowCount= 0
+        rowCount = 0
         for x in self.__database.printnews(self.__socialMediaType):
-            self.__overallSentiment+=self.__analyzeSentiment(x[3])
-            rowCount+=1
-        self.__overallSentiment=self.__overallSentiment/rowCount    
+            self.__overallSentiment += self.__analyzeSentiment(x[3])
+            rowCount += 1
+        if rowCount != 0:
+            self.__overallSentiment = self.__overallSentiment / rowCount
 
     def __categorizeSentiment(self):
         """
@@ -178,17 +179,15 @@ class socialMedia:
         score = self.__overallSentiment
         if score <= -0.35:
             return "very very bad"
-        elif score <=-.75:
+        elif score <= -.75:
             return "very bad"
-        elif score <0:
+        elif score < 0:
             return "bad"
-        elif score <=.25:
+        elif score <= .25:
             return "neutral"
-        elif score <=5:
+        elif score <= 5:
             return "good"
-        elif score <=7.5:
+        elif score <= 7.5:
             return "very good"
         else:
             return "very very good"
-
- 
