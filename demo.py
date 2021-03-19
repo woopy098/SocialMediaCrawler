@@ -1,56 +1,79 @@
+from tkinter.ttk import Treeview
 import Database as Database
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.figure import Figure
+import TwitterCrawler as TwitterCrawler
+from RedditCrawler import RedditCrawler
 import tkinter as tk
 import tkinter.font as font
+from tkinter import messagebox, ttk
 from tkinter import *
 from tkinter import simpledialog
 import mysql.connector
 
+i = 0
+twcrawl = TwitterCrawler.TwitterCrawler()
+rdcrawl = RedditCrawler("Shopping_habits", "zSqCr7ZeezCMgQ", "-K97i2uEaVP9ae69IGGJ8HXp7Xz3LA")
 db = Database.Database()
 myFont = ('Arial', 15, 'bold')
 myFont1 = ('broadway', 15, 'bold')
 
 
-def showdata():
-    f = open("Database.py", "r")
-    print(f.read())
-    print("\nData Shown\n")
-
-
+# Search function: To search the keyword
 def search():
     e = simpledialog.askstring(title="Data Crawled",
                                prompt="What do you want to search?:")
+    refresh()
     x = db.search(e)
-    i = 0
-    for i in x:
-        for j in range(len(i)):
-            e = Entry(root, width=30, fg='blue')
-            e.grid(row=i, column=j)
-            e.insert(END, i[j])
-        i += 1
+    update(x)
 
 
+# Refresh function: To refresh the table
+def refresh():
+    for i in trv.get_children():
+        trv.delete(i)
+    # print("table")
+
+
+# Update function: To update table after the search function
+def update(rows):
+    for i in rows:
+        trv.insert('', 'end', values=i)
+
+
+# plotting function: To plot the graph
+def window():
+    newWindow = Toplevel(root)
+    newWindow.title("Graph")
+    newWindow.geometry("300x300")
+
+# plotting function: To plot the graph
 def plotting():
-    print("Bar chart")
+    # window()
+    house_prices = np.random.normal(2000, 2500, 5000)
+    plt.hist(house_prices, 50)
+    s = plt.show()
+    # print("Bar chart")
 
 
-def crawltwitter():
-    # T = tk.Text(root, height=2, width=30)
-    # T.pack()
-    # T.insert(tk.END, "Just a text Widget\nin two lines\n")
-    # tk.mainloop()
-    print("Twitter usage")
-
-
-def crawlreddit():
-    print("Reddit usage")
+# crawldata function: To start the crawling of data from the website
+def crawldata():
+    db.truncatetable()
+    twcrawl.crawl()
+    rdcrawl.crawl()
+    messagebox.showinfo("Popup", "Crawl Done")
 
 
 root = Tk(className=' Crawler Data for Reddit & Twitter')
-root.geometry("550x350")
+# root2 = Tk()
+root.geometry("800x500")
 myFont = font.Font(family='Arial', size=15, weight='bold')
 myFont1 = font.Font(family='broadway', size=15, weight='bold')
 frame = tk.Frame(root)
 frame.pack()
+style = ttk.Style()
 
 w = Label(frame,
           text="Welcome to the Crawler Data GUI",
@@ -67,7 +90,22 @@ button0.pack(side=tk.TOP,
              padx=5,
              pady=5)
 
-button1 = tk.Button(frame, text="Exit",
+wrapper1 = LabelFrame(root, text="Crawl Data")
+wrapper1.pack(fill="both", expand="yes", padx=20, pady=10)
+trv = ttk.Treeview(wrapper1,
+                   columns=(1, 2, 3, 4, 5, 6),
+                   show="headings",
+                   height="20")
+trv.pack()
+trv.heading(1, text="ID")
+trv.heading(2, text="type")
+trv.heading(3, text="user")
+trv.heading(4, text="text")
+trv.heading(5, text="likes")
+trv.heading(6, text="dates & times")
+
+button1 = tk.Button(frame,
+                    text="Exit",
                     fg="red",
                     command=quit)
 button1['font'] = myFont
@@ -75,7 +113,8 @@ button1.pack(side=tk.BOTTOM,
              padx=5,
              pady=5)
 
-button2 = tk.Button(frame, text="Plot",
+button2 = tk.Button(frame,
+                    text="Plot",
                     fg="black",
                     command=plotting)
 button2['font'] = myFont
@@ -84,26 +123,13 @@ button2.pack(side=tk.BOTTOM,
              pady=5)
 
 button3 = tk.Button(frame,
-                    text="Crawl Data from Reddit",
+                    text="Crawl Data",
                     fg="black",
-                    command=crawlreddit)
+                    command=crawldata)
 button3['font'] = myFont
 button3.pack(side=tk.BOTTOM,
              padx=5,
              pady=5)
 
-slogan = tk.Button(frame,
-                   text="Crawl Data from Twitter",
-                   command=crawltwitter)
-slogan['font'] = myFont
-slogan.pack(side=tk.BOTTOM,
-            padx=5,
-            pady=5)
-
-button4 = tk.Button(frame,
-                    text="Show Data",
-                    command=showdata)
-button4['font'] = myFont
-button4.pack(side=tk.TOP, padx=5, pady=5)
-
+window(plotting())
 root.mainloop()
