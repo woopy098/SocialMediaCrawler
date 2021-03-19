@@ -26,7 +26,6 @@ class Database:
     printnews(category):
         Printing news base on social media (reddit or twitter)
     """
-
     def __init__(self,host,user,password,database):
         """
          Construct all the necessary attributes for Database and initialize the logins
@@ -39,7 +38,7 @@ class Database:
         self.user = user
         self.password = password
         self.database = database
-        self.charset = "utf8mb4"
+        self.charset = 'utf8mb4'
         self._connection() #call _connection function
 
     def _connection(self): #private method
@@ -55,8 +54,8 @@ class Database:
                 database = self.database,
                 charset = self.charset
             )
-            print("database connected")
             self._db = conn
+            print("\ndatabase connected")
         except Error as err:
             print("error while connecting to database",err)
 
@@ -154,7 +153,6 @@ class Database:
         else:
             print("no such news, type only twitter or reddit")
             type = category
-            #exit()
         try:
             sql = "SELECT * FROM crawleddata WHERE type = '" + type + "'"
             cursor.execute(sql)   # select all from table(comment)

@@ -1,11 +1,12 @@
-import Database as Database
+from Database import Database
+import config as c
 import tkinter as tk
 import tkinter.font as font
 from tkinter import *
 from tkinter import simpledialog
 import mysql.connector
 
-db = Database.Database()
+db = Database(c.user,c.host,c.password,c.database)
 myFont = ('Arial', 15, 'bold')
 myFont1 = ('broadway', 15, 'bold')
 
