@@ -105,8 +105,8 @@ class Database:
             result = cursor.fetchall()
         except Error as err:
             print("error reading data",err)
-        #for x in result:
-         #  print(x)
+        for x in result:
+          print(x)
         cursor.close()
         return result
 
