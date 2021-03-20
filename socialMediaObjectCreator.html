@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module socialMediaObjectCreator</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>socialMediaObjectCreator</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Ctengz%5Conedrive%5Cdocuments%5Cproject%5Cjavaoop%5Csocialmediaobjectcreator.py">c:\users\tengz\onedrive\documents\project\javaoop\socialmediaobjectcreator.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="socialMediaObjectCreator.html#socialMedia">socialMedia</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="socialMedia">class <strong>socialMedia</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#socialMedia">socialMedia</a>(database,&nbsp;socialMediaType)<br>
+&nbsp;<br>
+A&nbsp;class&nbsp;to&nbsp;represent&nbsp;social&nbsp;media<br>
+...<br>
+Attributes<br>
+----------<br>
+<a href="#socialMedia">socialMedia</a>&nbsp;:&nbsp;Object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create&nbsp;<a href="builtins.html#object">object</a>&nbsp;for&nbsp;different&nbsp;social&nbsp;media.&nbsp;Object&nbsp;has&nbsp;database&nbsp;type,&nbsp;sentiment&nbsp;score&nbsp;and&nbsp;crime&nbsp;score&nbsp;<br>
+&nbsp;<br>
+Methods<br>
+-------<br>
+<a href="#socialMedia-getCrimeScore">getCrimeScore</a>():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;returns&nbsp;dictionary:&nbsp;Key&nbsp;=&nbsp;Crime&nbsp;type,&nbsp;Value&nbsp;=&nbsp;Crime&nbsp;Count)<br>
+<a href="#socialMedia-getSentimentScore">getSentimentScore</a>():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;returns&nbsp;double:&nbsp;Score&nbsp;of&nbsp;social&nbsp;media's&nbsp;overall&nbsp;sentiment(range&nbsp;-1&nbsp;to&nbsp;1)<br>
+<a href="#socialMedia-getSentiment">getSentiment</a>():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;returns&nbsp;str:&nbsp;Category&nbsp;of&nbsp;social&nbsp;media's&nbsp;sentiment&nbsp;based&nbsp;on&nbsp;sentiment&nbsp;score<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="socialMedia-__init__"><strong>__init__</strong></a>(self, database, socialMediaType)</dt><dd><tt>Constructs&nbsp;all&nbsp;the&nbsp;necessary&nbsp;attributes&nbsp;for&nbsp;the&nbsp;social&nbsp;media:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Generates&nbsp;Object&nbsp;Crime&nbsp;score<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Generates&nbsp;Object&nbsp;platform&nbsp;sentiment&nbsp;score<br>
+&nbsp;<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+&nbsp;&nbsp;&nbsp;&nbsp;database:&nbsp;<a href="builtins.html#object">object</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;database&nbsp;<a href="builtins.html#object">object</a>&nbsp;containing&nbsp;social&nbsp;media<br>
+&nbsp;&nbsp;&nbsp;&nbsp;socialMediaType:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"reddit"=&nbsp;database&nbsp;containing&nbsp;reddit,&nbsp;"twitter"&nbsp;=&nbsp;database&nbsp;containing&nbsp;twitter</tt></dd></dl>
+
+<dl><dt><a name="socialMedia-getCrimeScore"><strong>getCrimeScore</strong></a>(self)</dt><dd><tt>Gets&nbsp;crime&nbsp;score&nbsp;for&nbsp;the&nbsp;social&nbsp;media<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+None<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Dictionary&nbsp;:&nbsp;key&nbsp;=&nbsp;crime&nbsp;type,&nbsp;value&nbsp;=&nbsp;crime&nbsp;count</tt></dd></dl>
+
+<dl><dt><a name="socialMedia-getSentiment"><strong>getSentiment</strong></a>(self)</dt><dd><tt>get&nbsp;social&nbsp;media's&nbsp;sentiment&nbsp;type<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+&nbsp;&nbsp;&nbsp;&nbsp;None<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+&nbsp;&nbsp;&nbsp;&nbsp;String:&nbsp;social&nbsp;media's&nbsp;sentiment&nbsp;Type</tt></dd></dl>
+
+<dl><dt><a name="socialMedia-getSentimentScore"><strong>getSentimentScore</strong></a>(self)</dt><dd><tt>get&nbsp;social&nbsp;media's&nbsp;sentiment&nbsp;score<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+&nbsp;&nbsp;&nbsp;&nbsp;None<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+&nbsp;&nbsp;&nbsp;&nbsp;double:&nbsp;social&nbsp;media's&nbsp;sentiment&nbsp;score</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table>
+</body></html>
