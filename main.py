@@ -8,6 +8,7 @@ from GUI import GUI
 
 print("Start")
 db = Database(c.host, c.user, c.password, c.database)
+db.createTable()
 reddit = RedditCrawler("Crimes", c.reddit_id, c.reddit_secret)
 twitter = TwitterCrawler(c.consumer_key, c.consumer_secret,
                          c.access_token, c.access_token_secret)
