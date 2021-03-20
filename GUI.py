@@ -21,7 +21,51 @@ from socialMediaObjectCreator import socialMedia
 
 
 class GUI:
+    """
+    A class to represent the GUI
+
+    ...
+    Attributes
+    ----------
+    self.root : Object
+        Work to create the window with title 'Crawler Data for Reddit & Twitter'
+    self.frame : Object
+        Work like a container to organize and group widgets
+    self.pack : Object
+        Work as to organize widget depend on the option place in the brackets
+    self.button : Object
+        Work to create a button to communicate between the GUI and the user
+    self.trv : Object
+        Work to create a space like a table with header
+
+    Methods
+    -------
+    refresh()
+        help to refresh the data after displaying it in the table
+    update()
+        help to continue update table after using the search function
+    search()
+        help to search for the keyword in the crawled data
+    plotting()
+        help to plot the graph for analysis
+    crawldata()
+        help to integrate between user to crawl data from Reddit and Twitter
+
+    """
+
     def __init__(self, db, reddit, twitter):
+        """
+        Construct all the necessary attributes for GUI:
+
+        Parameters
+        ----------
+        db: object
+            database object containing the social media
+        reddit: object
+            reddit object to crawl Reddit data
+        twitter: object
+            twitter object to crawl Twitter data
+        """
         self.graph = socialMedia
         self.myFont = ('Arial', 15, 'bold')
         self.myFont1 = ('broadway', 15, 'bold')
@@ -92,48 +136,83 @@ class GUI:
 
     # Refresh function: To refresh the table
     def refresh(self):
+        """
+        To refresh the table after search function
+
+        """
         for i in self.trv.get_children():
             self.trv.delete(i)
         # print("table")
 
     # Update function: To update table after the search function
     def update(self, rows):
+        """
+        Updating the table after searching the keyword
+
+        Parameter
+        ---------
+        rows: the rows needed after searching keyword
+
+        Returns
+        -------
+            Data being displayed in the table
+        """
         for i in rows:
             self.trv.insert('', 'end', values=i)
 
     # Search function: To search the keyword
     def search(self):
+        """
+        Searching the keyword in the crawled data
+
+        Returns
+        -------
+            Post or tweet with the keyword will displayed on the table
+
+        """
         e = simpledialog.askstring(title="Data Crawled",
                                    prompt="What do you want to search?:")
         self.refresh()
         x = self.db.search(e)
         self.update(x)
 
-    # window function: To open new window when plotting the graph
-    # def window():
-    #   newWindow = Toplevel(root)
-    #   newWindow.title("Graph")
-    #   newWindow.geometry("300x300")
-    
     # plotting function: To plot the graph
     def plotting(self):
+        """
+        Plotting the graph using the crawled data for analysis
+
+        Returns
+        -------
+            A bar chart displaying Reddit and Twitter crawled data
+
+        """
         key = list(self.redditObject.getCrimeScore().keys())
         index = np.arange(len(key))
         index1 = [x + 0.4 for x in index]
         rvalue = list(self.redditObject.getCrimeScore().values())
         tvalue = list(self.twitterObject.getCrimeScore().values())
         p1 = plt.bar(index, rvalue, width=0.4, tick_label="reddit", color='r')
-        p2 = plt.bar(index1, tvalue, width=0.4, tick_label="twitter", color='b')
+        p2 = plt.bar(index1, tvalue, width=0.4,
+                     tick_label="twitter", color='b')
         plt.ylabel('Frequency')
         plt.xlabel('Crimes')
-        plt.xticks([r + 0.2 for r in range(len(key))],key)
+        plt.xticks([r + 0.2 for r in range(len(key))], key)
         plt.title('Keyword Category in the News')
-        plt.legend((p1[0],p2[0]), ('Reddit: '+self.redditObject.getSentiment(), 'Twitter: ' +self.twitterObject.getSentiment()))
+        plt.legend((p1[0], p2[0]), ('Reddit: '+self.redditObject.getSentiment(),
+                                    'Twitter: ' + self.twitterObject.getSentiment()))
         plt.show()
         print("Plot")
 
     # crawldata function: To start the crawling of data from the website
     def crawldata(self):
+        """
+        Crawling data for Reddit and Twitter
+
+        returns
+        -------
+            A popup window saying Crawl done after crawling done for Reddit and Twitter
+
+        """
         self.db.createTable()
         self.reddit.crawl(self.db)
         self.twitter.crawl(self.db)

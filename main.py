@@ -1,4 +1,6 @@
 import config as c
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from socialMediaObjectCreator import socialMedia
 from Database import Database
 from RedditCrawler import RedditCrawler
 from TwitterCrawler import TwitterCrawler
