@@ -26,13 +26,15 @@ class CrawlerTest(unittest.TestCase):
     test_Valid_TwitterAuthentication():
         Test for valid authentication to twitter
     """
+
     def test_Invalid_DatabaseConnection(self):
         """
         Test for invalid connection to database
         :return:
         None
         """
-        self.assertRaises(Exception, Database("wrong", "wrong", "wrong", "wong"))
+        self.assertRaises(Exception, Database(
+            "wrong", "wrong", "wrong", "wong"))
 
     def test_Invalid_RedditAuthentication(self):
         """
@@ -51,7 +53,8 @@ class CrawlerTest(unittest.TestCase):
         None
         """
         db = Database(c.host, c.user, c.password, c.database)
-        t = TwitterCrawler.TwitterCrawler("wrong_key", "wrong_secret", "wrong_token", "wrong_tokensecret")
+        t = TwitterCrawler.TwitterCrawler(
+            "wrong_key", "wrong_secret", "wrong_token", "wrong_tokensecret")
         self.assertRaises(Exception, t.crawl(db))
 
     def test_Valid_DatabaseConnection(self):
@@ -60,7 +63,8 @@ class CrawlerTest(unittest.TestCase):
         :return:
         None
         """
-        self.assertRaises(Exception, Database(c.host, c.user, c.password, c.database))
+        self.assertRaises(Exception, Database(
+            c.host, c.user, c.password, c.database))
 
     def test_Valid_RedditAuthentication(self):
         """
@@ -71,7 +75,8 @@ class CrawlerTest(unittest.TestCase):
         print("\nTesting valid Reddit Authentication:")
         r = RedditCrawler.RedditCrawler("crimes", c.reddit_id, c.reddit_secret)
         # Test crawling one item in Reddit
-        self.assertRaises(Exception, print(list(r.reddit.subreddit('all').top(limit=1)).pop().title))
+        self.assertRaises(Exception, print(
+            list(r.reddit.subreddit('all').top(limit=1)).pop().title))
 
     def test_Valid_TwitterAuthentication(self):
         """
@@ -80,11 +85,13 @@ class CrawlerTest(unittest.TestCase):
         None
         """
         print("\nTesting valid Twitter Authentication:")
-        t = TwitterCrawler.TwitterCrawler(c.consumer_key, c.consumer_secret, c.access_token, c.access_token_secret)
+        t = TwitterCrawler.TwitterCrawler(
+            c.consumer_key, c.consumer_secret, c.access_token, c.access_token_secret)
         tweepy = TwitterCrawler.tweepy
         api = t.api
         # Test crawling one item in Twitter
-        self.assertRaises(Exception, print(list(tweepy.Cursor(api.search, q="a").items(1)).pop().text))
+        self.assertRaises(Exception, print(
+            list(tweepy.Cursor(api.search, q="a").items(1)).pop().text))
 
 
 if __name__ == '__main__':
