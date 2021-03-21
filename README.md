@@ -1,6 +1,9 @@
 # 1009CrawlOOP
 Lab P3 OOP Project
 ## Installation
+### PRAW
+### Tweepy
+### Database
 1)proceed to https://dev.mysql.com/downloads/installer/
 2)download mysql-installer-community-8.0.x.0.msi . (x represent the number of the latest version)
 3)run the mysql-installer and select developer default for Setup type.
