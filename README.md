@@ -41,7 +41,7 @@ pip install mysql-connector-python
 ```
 Visit https://dev.mysql.com/doc/connector-python/en/connector-python-installation.html for detailed installation step.
 ### Database
-Install MySQL installer:
+Install MySQL installer Community:
 ```
 https://dev.mysql.com/downloads/installer/
 ```
