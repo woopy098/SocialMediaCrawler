@@ -21,6 +21,11 @@ python
 >>> import nltk
 >>> nltk.download('vader_lexicon')
 ```
+### MySQL Connector
+Install MySQL Connector by running pip:
+```
+pip install mysql-connector-python
+```
 ### Database
 1)proceed to https://dev.mysql.com/downloads/installer/
 2)download mysql-installer-community-8.0.x.0.msi . (x represent the number of the latest version)
