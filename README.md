@@ -26,6 +26,7 @@ Install MySQL Connector by running pip:
 ```
 pip install mysql-connector-python
 ```
+Visit https://dev.mysql.com/doc/connector-python/en/connector-python-installation-binary.html for detailed installation step.
 ### Database
 1)proceed to https://dev.mysql.com/downloads/installer/
 2)download mysql-installer-community-8.0.x.0.msi . (x represent the number of the latest version)
