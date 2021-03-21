@@ -36,3 +36,6 @@ Visit https://docs.tweepy.org/en/latest/install.html for detailed installation s
 6)double click on sqldatabase to set it as the default schemas.
 7)Go to file and select open SQL script.
 8)locate the script named sqldatabase_crawleddata.sql and execute it.
+
+## Configuration
+<< to be continued>>
