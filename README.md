@@ -54,7 +54,10 @@ Visit https://github.com/reddit-archive/reddit/wiki/OAuth2 for detailed guide on
 Visit for detailed guide on how to register and get the credentials.
 ### Database
 Create Database credentials:
-Visit https://www.sqlshack.com/how-to-install-mysql-database-server-8-0-19-on-windows-10/ again on how to create a database.
+```
+https://www.sqlshack.com/how-to-install-mysql-database-server-8-0-19-on-windows-10/
+```
+Visit the website again on how to create a database.\
 Take note of your localhost, user, password and database name for the below configuration.
 ### config.py
 Before you run python program, make sure to change the configuration to your credentials in ```config.py```:
@@ -80,6 +83,6 @@ Once the configuration is done. Run the program where the file is located via:
 ```
 python ./main.py
 ```
-Remember that data in the database and the table is not found.
-Press the crawl button first and wait 5 to 10 mins to finish crawling data from Reddit and Twitter.
+Remember that data in the database and the table is not found.\
+Press the crawl button first and wait 5 to 10 mins to finish crawling data from Reddit and Twitter.\
 Make sure that configuration is correct or else the program will not run.
