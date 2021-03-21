@@ -21,6 +21,8 @@ python
 >>> import nltk
 >>> nltk.download('vader_lexicon')
 ```
+### matplotlib
+### tkinter
 ### MySQL Connector
 Install MySQL Connector by running pip:
 ```
