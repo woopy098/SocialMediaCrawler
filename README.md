@@ -44,5 +44,22 @@ Visit https://dev.mysql.com/doc/connector-python/en/connector-python-installatio
 1)proceed to https://dev.mysql.com/downloads/installer/
 2)download mysql-installer-community-8.0.x.0.msi . (x represent the number of the latest version)
 
-## Configuration
-<< to be continued>>
+## Configuration & Run Program
+Before you run python program, make sure to change the configuration to your credentials in ```config.py```:
+```
+# Database credentials
+host = ""
+password = ""
+user = ""
+database = ""
+
+# Reddit credentials
+reddit_id = ""
+reddit_secret = ""
+
+# Twitter credentials
+consumer_key = ""
+consumer_secret = ""
+access_token = ""
+access_token_secret = ""
+```
