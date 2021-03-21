@@ -22,7 +22,18 @@ python
 >>> nltk.download('vader_lexicon')
 ```
 ### matplotlib
+The graph plot feature is designed using matplotlib interface. Install via pip:
+```
+pip install matplotlib
+```
+Visit https://matplotlib.org/stable/users/installing.html for detailed installation guide.
 ### tkinter
+The UI interface is designed using tkinter python interface. Running ```python -m tkinter``` from command line will let you know whether it is properly installed.
+Install via pip:
+```
+pip install tkinter
+```
+Visit https://docs.python.org/3/library/tkinter.html for detailed installation guide.
 ### MySQL Connector
 Install MySQL Connector by running pip:
 ```
