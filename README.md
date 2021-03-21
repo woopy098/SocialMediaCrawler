@@ -51,7 +51,7 @@ Visit https://www.sqlshack.com/how-to-install-mysql-database-server-8-0-19-on-wi
 ### Reddit Authentication
 Visit https://github.com/reddit-archive/reddit/wiki/OAuth2 for detailed guide on how to register and get the credentials.
 ### Twitter Authentication
-Visit for detailed guide on how to register and get the credentials.
+Visit https://developer.twitter.com/en/docs/authentication/oauth-1-0a/obtaining-user-access-tokens on how to get the credentials for authentication. visit https://www.extly.com/docs/autotweetng_joocial/tutorials/how-to-auto-post-from-joomla-to-twitter/apply-for-a-twitter-developer-account/#apply-for-a-developer-account on how to register.
 ### Database
 Create Database credentials:
 ```
