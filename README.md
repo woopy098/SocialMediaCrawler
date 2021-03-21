@@ -41,8 +41,11 @@ pip install mysql-connector-python
 ```
 Visit https://dev.mysql.com/doc/connector-python/en/connector-python-installation.html for detailed installation step.
 ### Database
-1)proceed to https://dev.mysql.com/downloads/installer/
-2)download mysql-installer-community-8.0.x.0.msi . (x represent the number of the latest version)
+Install MySQL installer:
+```
+https://dev.mysql.com/downloads/installer/
+```
+Visit https://www.sqlshack.com/how-to-install-mysql-database-server-8-0-19-on-windows-10/ for detailed installation step
 
 ## Configuration & Run Program
 Before you run python program, make sure to change the configuration to your credentials in ```config.py```:
