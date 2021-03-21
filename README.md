@@ -25,7 +25,7 @@ Visit https://docs.tweepy.org/en/latest/install.html for detailed installation s
 9)execute to apply the configuration and do a test connection to the server by providing the 'root' username and the password you set previously and select check to ensure you are connected.
 10)select next till installation is completed.
 
-## Connection to MySQL Server
+### Connection to MySQL Server
 1)make sure MySQL80 is runnning on services.msc
 1.1)if you are unsure of step1, press win+R key to open run window and type services.msc. under the services window locate MySQL80, right click it and select start.
 2)open MySQL workbench, at the welcome screen you will see a local instance MySQL80.
